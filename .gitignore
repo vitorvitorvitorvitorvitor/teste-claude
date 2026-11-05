@@ -1,0 +1,4 @@
+node_modules/
+frames/
+sol-1-segundo/out/*
+!sol-1-segundo/out/sol-1-segundo.mp4

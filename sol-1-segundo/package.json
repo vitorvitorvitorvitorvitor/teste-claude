@@ -1,0 +1,7 @@
+{
+  "name": "sol-1-segundo",
+  "private": true,
+  "type": "module",
+  "scripts": { "render": "node render.mjs" },
+  "dependencies": { "three": "0.169.0" }
+}

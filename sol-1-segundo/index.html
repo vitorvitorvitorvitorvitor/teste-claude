@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Sol some por 1 segundo</title>
+<style>
+  @font-face { font-family: Abril; src: url(fonts/AbrilFatface.ttf); }
+  @font-face { font-family: Oswald; src: url(fonts/Oswald-SemiBold.ttf); }
+  html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+  canvas { position: absolute; inset: 0; width: 1080px; height: 1920px; display: block; }
+  #hud { position: absolute; left: 0; right: 0; top: 120px; display: flex; justify-content: center; }
+  .plaque {
+    font-family: Oswald, sans-serif; color: #2a0f08; background: #f4e3c1;
+    border: 6px solid #2a0f08; outline: 4px solid #f4e3c1; border-radius: 18px;
+    padding: 10px 34px 12px; text-align: center; letter-spacing: 3px;
+    box-shadow: 0 10px 0 rgba(20,6,2,.55);
+  }
+  .plaque .lbl { font-size: 26px; opacity: .8; }
+  .plaque .clk { font-size: 76px; line-height: 1; letter-spacing: 4px; }
+  .plaque .sub { font-size: 30px; color: #8c2410; }
+  #cap {
+    position: absolute; left: 70px; right: 70px; top: 1440px; text-align: center;
+    font-family: Abril, serif; font-size: 68px; line-height: 1.12; color: #fff3dc;
+    text-shadow: 0 5px 0 #2a0f08, 0 0 3px #2a0f08, 4px 4px 0 #2a0f08, -2px -2px 0 #2a0f08, 2px -2px 0 #2a0f08, -2px 2px 0 #2a0f08;
+  }
+  #cap em { font-style: normal; color: #ffc451; }
+  #tag {
+    position: absolute; right: 60px; top: 420px; font-family: Oswald, sans-serif; font-size: 34px;
+    color: #fff3dc; letter-spacing: 4px; padding: 6px 18px; border: 4px solid #fff3dc; border-radius: 10px;
+  }
+</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<div id="hud"><div class="plaque"><div class="lbl" id="lbl">HORA LOCAL</div><div class="clk" id="clk">17:59:57</div><div class="sub" id="sub"></div></div></div>
+<div id="cap"></div>
+<div id="tag"></div>
+<script type="importmap">
+{ "imports": { "three": "./node_modules/three/build/three.module.js", "three/addons/": "./node_modules/three/examples/jsm/" } }
+</script>
+<script type="module" src="scene.js"></script>
+</body>
+</html>
