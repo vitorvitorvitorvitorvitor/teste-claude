@@ -43,7 +43,7 @@ if (stillsArg > 0) {
   }
   execFileSync('python3', [path.join(ROOT, 'soundtrack.py'), path.join(ROOT, 'out', 'soundtrack.wav')], { stdio: 'inherit' });
   execFileSync('ffmpeg', ['-y', '-framerate', String(FPS), '-i', path.join(dir, 'f%04d.jpg'), '-i', path.join(ROOT, 'out', 'soundtrack.wav'),
-    '-c:v', 'libx264', '-preset', 'slow', '-crf', '18', '-pix_fmt', 'yuv420p', '-profile:v', 'high', '-movflags', '+faststart',
+    '-c:v', 'libx264', '-preset', 'slow', '-crf', '27', '-tune', 'grain', '-pix_fmt', 'yuv420p', '-profile:v', 'high', '-movflags', '+faststart',
     '-c:a', 'aac', '-b:a', '192k', '-shortest', path.join(ROOT, 'out', 'sol-1-segundo.mp4')], { stdio: 'inherit' });
 }
 await browser.close(); server.close();
