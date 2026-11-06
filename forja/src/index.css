@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 14 15 17;
+  --surface: 23 25 28;
+  --surface2: 32 35 39;
+  --line: 44 48 54;
+  --ink: 241 243 245;
+  --muted: 139 145 152;
+  --accent: 197 245 66;
+  --onaccent: 14 15 17;
+  --warn: 245 190 70;
+  --danger: 255 99 99;
+  color-scheme: dark;
+}
+:root[data-theme='claro'] {
+  --bg: 245 246 248;
+  --surface: 255 255 255;
+  --surface2: 236 238 241;
+  --line: 220 224 229;
+  --ink: 20 22 25;
+  --muted: 100 106 114;
+  --onaccent: 14 15 17;
+  color-scheme: light;
+}
+
+html, body, #root { height: 100%; }
+body {
+  @apply bg-bg text-ink font-sans antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+  -webkit-text-size-adjust: 100%;
+}
+input, select, textarea, button { font: inherit; }
+/* Evita zoom do Safari ao focar campos (fonte >= 16px). */
+input, select, textarea { font-size: 16px; }
+input[type='number']::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+.pt-safe { padding-top: max(env(safe-area-inset-top), 12px); }
+.pb-safe { padding-bottom: max(env(safe-area-inset-bottom), 10px); }
+.pb-nav { padding-bottom: calc(env(safe-area-inset-bottom) + 92px); }
+.tabular { font-variant-numeric: tabular-nums; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
