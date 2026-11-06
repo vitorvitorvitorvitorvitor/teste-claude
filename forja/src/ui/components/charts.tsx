@@ -77,8 +77,8 @@ function Axis({ max, unit }: { max: number; unit?: string }) {
         const y = PAD.t + (H - PAD.t - PAD.b) * (1 - t / max);
         return (
           <g key={i}>
-            <line x1={PAD.l} x2={W - PAD.r} y1={y} y2={y} stroke="rgb(var(--line))" strokeWidth={1} strokeDasharray={i === 0 ? undefined : '2 3'} />
-            <text x={PAD.l - 6} y={y + 3} textAnchor="end" fontSize="9" fill="rgb(var(--muted))">
+            <line x1={PAD.l} x2={W - PAD.r} y1={y} y2={y} style={{ stroke: 'rgb(var(--line))' }} strokeWidth={1} strokeDasharray={i === 0 ? undefined : '2 3'} />
+            <text x={PAD.l - 6} y={y + 3} textAnchor="end" fontSize="9" style={{ fill: 'rgb(var(--muted))' }}>
               {t >= 1000 ? `${fmt(t / 1000)} mil` : fmt(t)}
               {i === 2 && unit && t < 1000 ? unit : ''}
             </text>
@@ -93,7 +93,7 @@ function xLabels(data: Point[], x: (i: number) => number) {
   const every = Math.max(1, Math.ceil(data.length / 6));
   return data.map((d, i) =>
     i % every === 0 || i === data.length - 1 ? (
-      <text key={i} x={x(i)} y={H - 6} textAnchor={data.length > 1 && i === data.length - 1 ? 'end' : i === 0 && data.length > 1 ? 'start' : 'middle'} fontSize="9" fill="rgb(var(--muted))">
+      <text key={i} x={x(i)} y={H - 6} textAnchor={data.length > 1 && i === data.length - 1 ? 'end' : i === 0 && data.length > 1 ? 'start' : 'middle'} fontSize="9" style={{ fill: 'rgb(var(--muted))' }}>
         {d.label}
       </text>
     ) : null
@@ -121,10 +121,10 @@ export function LineChart({ data, unit, title }: { data: Point[]; unit?: string;
           }}
           onPointerLeave={() => setSel(null)}>
           <Axis max={max} unit={unit} />
-          <path d={path} fill="none" stroke="rgb(var(--accent))" strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />
-          {sel !== null && <line x1={x(sel)} x2={x(sel)} y1={PAD.t} y2={H - PAD.b} stroke="rgb(var(--muted))" strokeWidth={1} />}
+          <path d={path} fill="none" style={{ stroke: 'rgb(var(--accent))' }} strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />
+          {sel !== null && <line x1={x(sel)} x2={x(sel)} y1={PAD.t} y2={H - PAD.b} style={{ stroke: 'rgb(var(--muted))' }} strokeWidth={1} />}
           {data.map((d, i) => (
-            <circle key={i} cx={x(i)} cy={y(d.value)} r={sel === i ? 5 : 4} fill="rgb(var(--accent))" stroke="rgb(var(--surface))" strokeWidth={2} />
+            <circle key={i} cx={x(i)} cy={y(d.value)} r={sel === i ? 5 : 4} style={{ fill: 'rgb(var(--accent))', stroke: 'rgb(var(--surface))' }}  strokeWidth={2} />
           ))}
           {xLabels(data, x)}
         </svg>
@@ -156,7 +156,7 @@ export function BarChart({ data, unit, title }: { data: Point[]; unit?: string; 
                 {h > 0 && (
                   <path
                     d={`M${x(i) - bw / 2},${PAD.t + ih} V${top + r} Q${x(i) - bw / 2},${top} ${x(i) - bw / 2 + r},${top} H${x(i) + bw / 2 - r} Q${x(i) + bw / 2},${top} ${x(i) + bw / 2},${top + r} V${PAD.t + ih} Z`}
-                    fill="rgb(var(--accent))"
+                    style={{ fill: 'rgb(var(--accent))' }}
                     opacity={sel === null || sel === i ? 1 : 0.45}
                   />
                 )}

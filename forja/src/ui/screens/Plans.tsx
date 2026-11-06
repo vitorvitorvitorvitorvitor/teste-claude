@@ -7,6 +7,7 @@ import { prescribe } from '../../engine/prescription';
 import { hasEquipment, swapOptions } from '../../engine/selection';
 import { selectionContext, SPLIT_LABEL, splitWarnings } from '../../engine/splits';
 import { ExerciseInfo, SwapSheet } from '../components/exercise';
+import { ExerciseThumb } from '../figure/Demo';
 import { Button, Card, Chip, Confirm, Empty, Field, Icon, inputCls, NumberInput, SectionTitle, Sheet } from '../components/ui';
 
 export function Plans({ st }: { st: EngineState }) {
@@ -75,6 +76,7 @@ export function Plans({ st }: { st: EngineState }) {
                 return (
                   <button key={s.slotId} onClick={() => setEdit({ t, i })} className="w-full text-left py-2.5 flex items-center gap-3">
                     <span className={`h-2 w-2 rounded-full shrink-0 ${s.priority === 1 ? 'bg-accent' : s.priority === 2 ? 'bg-accent/50' : 'bg-line'}`} title={`Prioridade ${s.priority}`} />
+                    {ex && <ExerciseThumb ex={ex} className="h-11 w-11" />}
                     <span className="flex-1">
                       <span className="block">{ex?.name ?? s.exerciseId}</span>
                       <span className="block text-xs text-muted tabular">

@@ -9,6 +9,7 @@ import { discardSession, logDay, saveCheckIn, saveSession, undoDayLog } from '..
 import { unlockAudio } from '../../lib/beep';
 import { MINUTES, MODE_LABEL } from '../labels';
 import { ExerciseSheet, SwapSheet } from '../components/exercise';
+import { ExerciseThumb } from '../figure/Demo';
 import { Button, Card, Chip, Confirm, Icon, SectionTitle, Segmented, Sheet } from '../components/ui';
 
 export function Today({ st, onOpenWorkout, goTo }: { st: EngineState; onOpenWorkout: (id: string) => void; goTo: (tab: string) => void }) {
@@ -234,6 +235,11 @@ export function Today({ st, onOpenWorkout, goTo }: { st: EngineState; onOpenWork
             <div className="mt-3 space-y-2" data-testid="exercise-preview">
               {built.exercises.map((e) => (
                 <div key={e.slotId} className="rounded-2xl bg-surface border border-line/60 p-3 flex items-center gap-3">
+                  {lib(e.exerciseId) && (
+                    <button onClick={() => setInfo(lib(e.exerciseId) ?? null)} aria-label={`Ver demonstração de ${e.exerciseName}`}>
+                      <ExerciseThumb ex={lib(e.exerciseId)!} />
+                    </button>
+                  )}
                   <button className="flex-1 text-left" onClick={() => setInfo(lib(e.exerciseId) ?? null)}>
                     <div className="font-medium">{e.exerciseName}</div>
                     <div className="text-xs text-muted tabular">

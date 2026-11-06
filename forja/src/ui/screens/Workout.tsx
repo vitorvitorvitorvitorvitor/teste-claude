@@ -10,6 +10,7 @@ import { compareSessions, isCountedStatus, sessionCompletion, sessionVolume } fr
 import { beep, unlockAudio } from '../../lib/beep';
 import { MODE_LABEL } from '../labels';
 import { ExerciseSheet, SwapSheet } from '../components/exercise';
+import { ExerciseThumb } from '../figure/Demo';
 import { Button, Chip, Confirm, Icon, NumberInput, Progress, Sheet, Stat, cx, inputCls } from '../components/ui';
 
 const LB = 2.20462;
@@ -179,6 +180,7 @@ export function Workout({ sessionId, st, onClose }: { sessionId: string; st: Eng
             e={e}
             index={ei}
             unit={st.prefs.weightUnit}
+            exercise={lib(e.exerciseId)}
             onInfo={() => setInfo(lib(e.exerciseId) ?? null)}
             onSwap={() => setSwapIdx(ei)}
             onNote={() => setNoteIdx(ei)}
@@ -328,6 +330,7 @@ function ExerciseCard({
   e,
   index,
   unit,
+  exercise,
   onInfo,
   onSwap,
   onNote,
@@ -340,6 +343,7 @@ function ExerciseCard({
   e: SessionExercise;
   index: number;
   unit: Unit;
+  exercise?: Exercise;
   onInfo: () => void;
   onSwap: () => void;
   onNote: () => void;
@@ -357,21 +361,28 @@ function ExerciseCard({
   return (
     <section className={cx('rounded-3xl border p-4 transition', allDone ? 'border-accent/50 bg-accent/5' : 'border-line/60 bg-surface')} data-testid={`exercise-${index}`}>
       <div className="flex items-start gap-2">
-        <button className="flex-1 text-left" onClick={onInfo}>
+        {exercise && (
+          <button onClick={onInfo} aria-label={`Ver demonstração de ${e.exerciseName}`} className="shrink-0">
+            <ExerciseThumb ex={exercise} className="h-16 w-16" />
+          </button>
+        )}
+        <button className="flex-1 text-left min-w-0" onClick={onInfo}>
           <div className="text-xs text-muted tabular">Exercício {index + 1}</div>
           <h3 className="text-lg font-semibold leading-snug">{e.exerciseName}</h3>
           <div className="text-sm text-muted tabular">
             {e.targetSets} × {e.repMin}–{e.repMax} {repUnit} · RIR {e.targetRir[0]}–{e.targetRir[1]} · descanso {e.restSec}s
           </div>
         </button>
-        <button aria-label="Ver instruções" onClick={onInfo} className="h-10 w-10 rounded-full bg-surface2 grid place-items-center">
-          <Icon name="info" className="h-4 w-4" />
+      </div>
+      <div className="flex gap-2 mt-3">
+        <button aria-label="Ver instruções" onClick={onInfo} className="flex-1 h-10 rounded-xl bg-surface2 flex items-center justify-center gap-1.5 text-sm">
+          <Icon name="play" className="h-4 w-4" /> Como fazer
         </button>
-        <button aria-label="Trocar exercício" onClick={onSwap} disabled={anyDone} className="h-10 w-10 rounded-full bg-surface2 grid place-items-center disabled:opacity-30">
-          <Icon name="swap" className="h-4 w-4" />
+        <button aria-label="Trocar exercício" onClick={onSwap} disabled={anyDone} className="flex-1 h-10 rounded-xl bg-surface2 flex items-center justify-center gap-1.5 text-sm disabled:opacity-30">
+          <Icon name="swap" className="h-4 w-4" /> Trocar
         </button>
-        <button aria-label="Observações" onClick={onNote} className={cx('h-10 w-10 rounded-full grid place-items-center', e.notes ? 'bg-accent/20 text-accent' : 'bg-surface2')}>
-          <Icon name="note" className="h-4 w-4" />
+        <button aria-label="Observações" onClick={onNote} className={cx('flex-1 h-10 rounded-xl flex items-center justify-center gap-1.5 text-sm', e.notes ? 'bg-accent/20 text-accent' : 'bg-surface2')}>
+          <Icon name="note" className="h-4 w-4" /> Nota
         </button>
       </div>
 

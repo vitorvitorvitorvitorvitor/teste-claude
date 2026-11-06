@@ -120,3 +120,18 @@ test('funciona offline após o primeiro carregamento (service worker)', async ({
   await expect(page.getByTestId('workout-screen')).toBeVisible();
   await context.setOffline(false);
 });
+
+test('demonstração animada, mapa muscular e tutorial do exercício', async ({ page }) => {
+  await onboard(page);
+  await page.getByTestId('start-workout').click();
+  await page.getByRole('button', { name: /^Ver demonstração de/ }).first().click();
+  const sheet = page.getByRole('dialog');
+  await expect(sheet.getByTestId('exercise-demo').locator('svg')).toBeVisible();
+  await expect(sheet.getByRole('img', { name: 'Mapa muscular' })).toBeVisible();
+  await expect(sheet.getByText('Músculos trabalhados')).toBeVisible();
+  await expect(sheet.getByText(/^Principal —/)).toBeVisible();
+  await expect(sheet.getByText('Como executar')).toBeVisible();
+  await expect(sheet.getByRole('link', { name: /Ver vídeos no YouTube/ })).toHaveAttribute('href', /youtube\.com\/results/);
+  await sheet.getByRole('button', { name: 'Pausar demonstração' }).click();
+  await expect(sheet.getByRole('button', { name: 'Reproduzir demonstração' })).toBeVisible();
+});

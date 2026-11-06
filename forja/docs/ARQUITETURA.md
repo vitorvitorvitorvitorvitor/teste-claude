@@ -18,6 +18,7 @@ forja/
 │   │   └── backup.ts          # exportação/importação JSON com validação
 │   ├── lib/                   # tema, .ics, download/compartilhar, sinal sonoro
 │   ├── ui/
+│   │   ├── figure/            # demonstrações animadas originais (rig, poses, renderizador) e mapa muscular
 │   │   ├── components/        # design system, gráficos SVG, componentes de exercício
 │   │   └── screens/           # Onboarding, Hoje, Execução, Treinos, Histórico, Evolução, Perfil
 │   ├── App.tsx                # navegação por abas
@@ -50,3 +51,11 @@ forja/
 - `domain/types.ts` mapeia diretamente para `struct`s `Codable`.
 - `engine/` não depende de DOM, React ou IndexedDB: pode ser portado função por função para Swift (ou executado via JavaScriptCore). Os testes unitários servem como especificação.
 - O backup JSON é o formato de migração entre o PWA e uma futura versão nativa.
+
+## Demonstrações animadas
+
+- `ui/figure/rig.ts`: boneco articulado por cinemática direta (ângulos absolutos por segmento, âncora fixa — pés no chão, mãos na barra etc.). A interpolação é feita por ângulo, preservando o comprimento dos membros.
+- `ui/figure/animations.ts`: ~70 animações (pose inicial, final e acessórios) e o mapeamento exercício → animação. Exercícios personalizados usam a animação do padrão de movimento.
+- `ui/figure/render.ts`: gera o SVG de cada quadro; segmentos do músculo principal ficam na cor de destaque, auxiliares em destaque suave.
+- `ui/figure/muscles.ts`: mapa muscular frente/costas e descrição de cada grupo.
+- Revisão visual: `npx vite-node scripts/preview-figures.ts figuras.html` gera uma folha com todas as poses.

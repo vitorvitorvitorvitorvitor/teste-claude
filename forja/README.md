@@ -14,6 +14,7 @@ Aplicativo web progressivo (PWA) de musculação que monta automaticamente o tre
 - **Histórico** com calendário mensal, sessões completas e parciais, séries e cargas. **Evolução** com gráficos de carga por exercício, frequência mensal, sessões e volume semanais, distribuição muscular e duração — só com dados reais.
 - **Aderência sem pressão**: “Hoje só tenho 15 minutos”, “Não consegui ir hoje”, adiar, registrar descanso, meta semanal flexível, sequência de semanas opcional (desligada por padrão) e lembretes no Calendário do iPhone.
 - **Biblioteca** com 83 exercícios (10 categorias), instruções, erros comuns, cuidados, alternativas, preferidos e bloqueados.
+- **Tutorial de cada exercício**: demonstração animada original (boneco articulado em loop, com play/pausa e posições de início e fim), mapa muscular frente/costas destacando o músculo principal e os auxiliares, explicação do que cada músculo faz, passo a passo, respiração, onde sentir, erros comuns e cuidados. Miniaturas aparecem na tela Hoje, na execução e nas fichas. Botão opcional “Ver vídeos no YouTube” (abre vídeos de terceiros; requer internet).
 - **Painel de referências científicas** (Perfil → Referências científicas do motor): 14 regras e 18 fontes com DOI/URL, população, parâmetros, quando não aplicar, nível de confiança e testes que as validam.
 - **Backup** JSON (exportar/importar com validação) e apagar todos os dados com confirmação.
 
@@ -88,8 +89,8 @@ Dicas: o app instalado e o Safari têm armazenamentos separados. Use **Perfil �
 
 Executados de verdade neste ambiente (Linux, Node 22, Chromium do Playwright):
 
-- `npm test` → **63 testes unitários aprovados** (motor, divisões, seleção/substituição, prescrição, progressão, volume, persistência com IndexedDB simulado, troca de divisão, regeneração, backup/validação, apagar dados).
-- `npm run test:e2e` → **8 testes de interface aprovados**: fluxo completo (perfil → Full Body A → registro → histórico → recarregar → dia seguinte → falta → B), retomada de sessão após recarregar, treino rápido + “não consegui”, troca de divisão mantendo histórico, layout mobile sem rolagem horizontal em todas as abas, funcionamento offline com service worker, backup exportar/apagar/importar e painel de referências.
+- `npm test` → **69 testes unitários aprovados** (demonstrações animadas de todos os 83 exercícios, mapa muscular, motor, divisões, seleção/substituição, prescrição, progressão, volume, persistência com IndexedDB simulado, troca de divisão, regeneração, backup/validação, apagar dados).
+- `npm run test:e2e` → **9 testes de interface aprovados**: tutorial do exercício (demonstração, mapa muscular, link de vídeos), fluxo completo (perfil → Full Body A → registro → histórico → recarregar → dia seguinte → falta → B), retomada de sessão após recarregar, treino rápido + “não consegui”, troca de divisão mantendo histórico, layout mobile sem rolagem horizontal em todas as abas, funcionamento offline com service worker, backup exportar/apagar/importar e painel de referências.
 
 Cobertura dos 16 cenários pedidos: 1–13 e 16 em testes unitários e/ou E2E; 14 (offline) e 15 (layout mobile) em E2E.
 
@@ -99,7 +100,7 @@ Cobertura dos 16 cenários pedidos: 1–13 e 16 em testes unitários e/ou E2E; 1
 - **Notificações**: o Safari não agenda notificações locais sem servidor de push. Alternativa implementada: arquivo `.ics` com lembretes recorrentes no Calendário do iPhone.
 - **Cronômetro de descanso em segundo plano**: o iOS suspende páginas em segundo plano; o tempo é recalculado ao voltar, mas o sinal sonoro só toca com o app aberto. Vibração não é suportada no Safari.
 - **Armazenamento**: o Safari pode limpar dados de sites pouco usados; o app instalado na Tela de Início e o pedido de armazenamento persistente reduzem o risco. Faça backups.
-- **Imagens de exercícios**: não foram incluídas (nenhuma fonte com licença verificada). As instruções são textuais.
+- **Imagens e vídeos**: as demonstrações são ilustrações animadas originais do FORJA (estilizadas, não fotos). Fotos de bancos “de domínio público” foram avaliadas e descartadas porque exibem marca comercial (origem e licença não verificáveis). Vídeos reais ficam no link opcional para o YouTube, que exige internet e não é controlado pelo app.
 - **Unidade lb**: convertida na tela de execução; textos de sugestão e gráficos exibem kg.
 - Os parâmetros do motor são pontos de partida conservadores, não garantias individuais. O app não diagnostica, não prescreve tratamentos e não substitui avaliação de profissional de Educação Física ou de saúde.
 

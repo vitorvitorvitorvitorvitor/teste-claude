@@ -28,7 +28,7 @@ test('backup: exportar, apagar e importar (desktop)', async ({ page }) => {
   await onboard(page);
   await page.getByRole('button', { name: 'Perfil', exact: true }).click();
   await page.getByTestId('import-input').setInputFiles(path);
-  await page.getByRole('button', { name: 'Importar', exact: true }).last().click();
+  await page.getByRole('dialog', { name: 'Importar backup?' }).getByRole('button', { name: 'Importar', exact: true }).click();
   await expect(page.getByText('Backup importado: 1 sessões.')).toBeVisible();
   await page.getByRole('button', { name: 'Histórico' }).click();
   await expect(page.getByTestId('history-list').getByText('Full Body A')).toBeVisible();
